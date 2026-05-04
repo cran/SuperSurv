@@ -71,14 +71,8 @@ screened_performance <- eval_summary(
 # plot_benchmark(fit_highdim, newdata = X_te, time = test$duration, event = test$event, eval_times = new.times)
 
 ## ----extract-features---------------------------------------------------------
-# The event.whichScreen object is a logical matrix.
-# Rows correspond to the predictors, and columns correspond to the algorithms in our event library.
-
-# 1. Get the logical vector for the 2nd model (Row 2)
-is_selected <- fit_highdim$event.whichScreen[2, ] 
-
-# 2. Map it to our original column names
-selected_features <- colnames(X_tr)[is_selected]
+# Get the variables retained by the second event learner.
+selected_features <- selected_variables(fit_highdim, learner = 2)
 
 cat("Total features evaluated:", ncol(X_tr), "\n")
 cat("Features retained by Elastic Net:", length(selected_features), "\n\n")

@@ -48,7 +48,7 @@ performance_results <- eval_summary(
   eval_times = new.times
 )
 
-## ----plot-benchmark, fig.align='center', fig.width=3, fig.height=9------------
+## ----plot-benchmark, fig.align='center', fig.width=9, fig.height=3------------
 plot_benchmark(
   object = fit_supersurv,
   newdata = X_te,

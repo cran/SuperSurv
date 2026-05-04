@@ -43,9 +43,5 @@ fit_parametric <- SuperSurv(
 )
 
 ## ----evaluate-parametric------------------------------------------------------
-cat("Cross-Validated Risks (Lower is better):\n")
-print(round(fit_parametric$event.cvRisks, 4))
-
-cat("\nFinal Ensemble Weights:\n")
-print(round(fit_parametric$event.coef, 4))
+summary(fit_parametric)
 

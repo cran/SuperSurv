@@ -12,7 +12,7 @@
 
 
 
-<title>3. Ensemble vs. Best Model Selection</title>
+<title>03. Ensemble vs. Best Model Selection</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">3. Ensemble vs. Best Model Selection</h1>
+<h1 class="title toc-ignore">03. Ensemble vs. Best Model Selection</h1>
 
 
 
@@ -425,19 +425,19 @@ winner-take-all approach (<code>selection = &quot;best&quot;</code>).</p>
 <div id="inspecting-the-weights" class="section level2">
 <h2>3. Inspecting the Weights</h2>
 <p>The difference between the two methodologies is immediately obvious
-when we inspect the meta-learner coefficients
-(<code>event.coef</code>).</p>
+when we inspect the meta-learner coefficients with
+<code>event_weights()</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- ENSEMBLE WEIGHTS (selection = &#39;ensemble&#39;) ---</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; --- ENSEMBLE WEIGHTS (selection = &#39;ensemble&#39;) ---</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(fit_ensemble<span class="sc">$</span>event.coef, <span class="dv">4</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">event_weights</span>(fit_ensemble), <span class="dv">4</span>))</span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;   surv.coxph_screen.all surv.weibull_screen.all   surv.rpart_screen.all </span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;                  0.5152                  0.1680                  0.3167</span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- BEST MODEL WEIGHTS (selection = &#39;best&#39;) ---</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; --- BEST MODEL WEIGHTS (selection = &#39;best&#39;) ---</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(fit_best<span class="sc">$</span>event.coef, <span class="dv">4</span>))</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">event_weights</span>(fit_best), <span class="dv">4</span>))</span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; [1] 1 0 0</span></span></code></pre></div>
 <p><strong>Interpretation:</strong> Notice that the Ensemble Super
 Learner distributes the weight across multiple models to minimize the

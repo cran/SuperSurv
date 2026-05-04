@@ -12,7 +12,7 @@
 
 
 
-<title>5. Advanced Hyperparameter Tuning &amp; Grid Search</title>
+<title>05. Advanced Hyperparameter Tuning &amp; Grid Search</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">5. Advanced Hyperparameter Tuning &amp;
+<h1 class="title toc-ignore">05. Advanced Hyperparameter Tuning &amp;
 Grid Search</h1>
 
 
@@ -400,7 +400,9 @@ return their names!</p>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">print</span>(rf_grid)</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;surv.rfsrc_nodesize3_ntree100&quot;  &quot;surv.rfsrc_nodesize15_ntree100&quot;</span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [3] &quot;surv.rfsrc_nodesize30_ntree100&quot; &quot;surv.rfsrc_nodesize3_ntree500&quot; </span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [5] &quot;surv.rfsrc_nodesize15_ntree500&quot; &quot;surv.rfsrc_nodesize30_ntree500&quot;</span></span></code></pre></div>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [5] &quot;surv.rfsrc_nodesize15_ntree500&quot; &quot;surv.rfsrc_nodesize30_ntree500&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;SuperSurv_grid&quot; &quot;character&quot;</span></span></code></pre></div>
 </div>
 <div id="fitting-the-tuned-ensemble" class="section level2">
 <h2>4. Fitting the Tuned Ensemble</h2>
@@ -424,7 +426,7 @@ fallback.</p>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>)</span>
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co"># Inspect which hyperparameter combination won!</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">round</span>(fit_tuned<span class="sc">$</span>event.coef, <span class="dv">3</span>)</span></code></pre></div>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">event_weights</span>(fit_tuned), <span class="dv">3</span>)</span></code></pre></div>
 <p>By leveraging <code>create_grid()</code>, you can easily execute a
 massive hyperparameter search space across XGBoost, SVMs, or Random
 Forests, mathematically guaranteeing that your final ensemble minimizes

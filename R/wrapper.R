@@ -40,7 +40,7 @@
 #'     nodesize = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.rfsrc <- function(time, event, X, newdata = NULL, new.times, obsWeights = NULL, id = NULL,
@@ -141,9 +141,10 @@ surv.rfsrc <- function(time, event, X, newdata = NULL, new.times, obsWeights = N
 #'     nodesize = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 # 1. Change the argument here to 'newdata'
 predict.surv.rfsrc <- function(object, newdata, new.times, ...) {
@@ -231,7 +232,7 @@ predict.surv.rfsrc <- function(object, newdata, new.times, ...) {
 #'     max_depth = 1
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.xgboost <- function(time, event, X, newdata = NULL,  new.times, obsWeights, id,
@@ -356,9 +357,10 @@ surv.xgboost <- function(time, event, X, newdata = NULL,  new.times, obsWeights,
 #'     max_depth = 1
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.xgboost <- function(object, newdata, new.times, ...) {
 
@@ -458,7 +460,7 @@ predict.surv.xgboost <- function(object, newdata, new.times, ...) {
 #'     new.times = times
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.svm <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -568,9 +570,10 @@ surv.svm <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     new.times = times
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.svm <- function(object, newdata, new.times, ...) {
 
@@ -653,7 +656,7 @@ predict.surv.svm <- function(object, newdata, new.times, ...) {
 #'     maxdepth = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.rpart <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -765,9 +768,10 @@ surv.rpart <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     maxdepth = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.rpart <- function(object, newdata, new.times, ...) {
 
@@ -844,7 +848,7 @@ predict.surv.rpart <- function(object, newdata, new.times, ...) {
 #'     nfolds = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.ridge <- function(time, event, X, newdata, new.times, obsWeights = NULL, id = NULL, nfolds = 10, ...) {
@@ -944,9 +948,10 @@ surv.ridge <- function(time, event, X, newdata, new.times, obsWeights = NULL, id
 #'     nfolds = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.ridge <- function(object, newdata, new.times, ...) {
 
@@ -1037,7 +1042,7 @@ predict.surv.ridge <- function(object, newdata, new.times, ...) {
 #'     min.node.size = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.ranger <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -1126,9 +1131,10 @@ surv.ranger <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     min.node.size = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.ranger <- function(object, newdata, new.times, ...) {
 
@@ -1203,7 +1209,7 @@ predict.surv.ranger <- function(object, newdata, new.times, ...) {
 #'   dist = "weibull"
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.parametric <- function(time, event, X, newdata, new.times, obsWeights, id, dist = "weibull", ...) {
   requireNamespace("survival", quietly = TRUE)
@@ -1293,7 +1299,7 @@ surv.parametric <- function(time, event, X, newdata, new.times, obsWeights, id, 
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.exponential <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
   surv.parametric(time = time, event = event, X = X, newdata = newdata,
@@ -1333,7 +1339,7 @@ surv.exponential <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.loglogistic <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
   surv.parametric(time = time, event = event, X = X, newdata = newdata,
@@ -1373,7 +1379,7 @@ surv.loglogistic <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.lognormal <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
   surv.parametric(time = time, event = event, X = X, newdata = newdata,
@@ -1411,7 +1417,7 @@ surv.lognormal <- function(time, event, X, newdata, new.times, obsWeights, id, .
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.weibull <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
   surv.parametric(time = time, event = event, X = X, newdata = newdata,
@@ -1455,8 +1461,9 @@ surv.weibull <- function(time, event, X, newdata, new.times, obsWeights, id, ...
 #'   dist = "weibull"
 #' )
 #'
-#' pred <- predict(fit$fit, newdata = newX, new.times = times)
+#' pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #' dim(pred)
+#' @noRd
 #' @export
 predict.surv.parametric <- function(object, newdata, new.times, ...) {
 
@@ -1530,7 +1537,7 @@ predict.surv.parametric <- function(object, newdata, new.times, ...) {
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.km <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
 
@@ -1589,8 +1596,9 @@ surv.km <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
 #'   id = NULL
 #' )
 #'
-#' pred <- predict(fit$fit, newdata = newX, new.times = times)
+#' pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #' dim(pred)
+#' @noRd
 #' @export
 predict.surv.km <- function(object, newdata, new.times, ...) {
 
@@ -1662,7 +1670,7 @@ predict.surv.km <- function(object, newdata, new.times, ...) {
 #'     nfolds = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.glmnet <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -1784,9 +1792,10 @@ surv.glmnet <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     nfolds = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.glmnet <- function(object, newdata, new.times, ...) {
 
@@ -1895,7 +1904,7 @@ predict.surv.glmnet <- function(object, newdata, new.times, ...) {
 #'     n.minobsinnode = 3
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.gbm <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -1929,6 +1938,7 @@ surv.gbm <- function(time, event, X, newdata, new.times, obsWeights, id,
 
   if(missing(obsWeights) || is.null(obsWeights)) obsWeights <- rep(1, length(time))
   dat <- data.frame(time = time, status = event, X)
+  n.cores <- .safe_detect_cores()
 
   # 3. Fit GBM Model
   # We use explicit arguments so create_surv_grid can tune them perfectly
@@ -1944,6 +1954,7 @@ surv.gbm <- function(time, event, X, newdata, new.times, obsWeights, id,
     weights = obsWeights,
     verbose = FALSE,
     keep.data = FALSE,
+    n.cores = n.cores,
     ...
   )
 
@@ -1988,6 +1999,19 @@ surv.gbm <- function(time, event, X, newdata, new.times, obsWeights, id,
   list(pred = pred, fit = fit_obj)
 }
 
+.safe_detect_cores <- function(detect = parallel::detectCores) {
+  n_cores <- tryCatch(detect(), error = function(e) NA_integer_)
+  if (length(n_cores) != 1L ||
+      !is.numeric(n_cores) ||
+      is.na(n_cores) ||
+      !is.finite(n_cores) ||
+      n_cores < 1) {
+    return(1L)
+  }
+
+  as.integer(n_cores)
+}
+
 
 #' Prediction function for GBM wrapper
 #'
@@ -2025,9 +2049,10 @@ surv.gbm <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     n.minobsinnode = 3
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.gbm <- function(object, newdata, new.times, ...) {
 
@@ -2103,7 +2128,7 @@ predict.surv.gbm <- function(object, newdata, new.times, ...) {
 #'     cts.num = 5
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.gam <- function(time, event, X, newdata, new.times, obsWeights, id, cts.num = 5, ...) {
@@ -2199,9 +2224,10 @@ surv.gam <- function(time, event, X, newdata, new.times, obsWeights, id, cts.num
 #'     cts.num = 5
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.gam <- function(object, newdata, new.times, ...) {
 
@@ -2269,7 +2295,7 @@ predict.surv.gam <- function(object, newdata, new.times, ...) {
 #'   id = NULL
 #' )
 #'
-#' dim(fit$pred)
+#' dim(fit[["pred"]])
 #' @export
 surv.coxph <- function(time, event, X, newdata, new.times, obsWeights, id, ...) {
   requireNamespace("survival", quietly = TRUE)
@@ -2369,8 +2395,9 @@ surv.coxph <- function(time, event, X, newdata, new.times, obsWeights, id, ...) 
 #'   id = NULL
 #' )
 #'
-#' pred <- predict(fit$fit, newdata = newX, new.times = times)
+#' pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #' dim(pred)
+#' @noRd
 #' @export
 predict.surv.coxph <- function(object, newdata, new.times, ...) {
 
@@ -2446,7 +2473,7 @@ predict.surv.coxph <- function(object, newdata, new.times, ...) {
 #'     penalty = 50
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.coxboost <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -2553,9 +2580,10 @@ surv.coxboost <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     penalty = 50
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.coxboost <- function(object, newdata, new.times, ...) {
 
@@ -2626,6 +2654,7 @@ predict.surv.coxboost <- function(object, newdata, new.times, ...) {
 #'     evaluated at the specified \code{new.times} grid.
 #' }
 #' @examples
+#' \dontrun{
 #' if (.Platform$OS.type != "windows" &&
 #'   requireNamespace("BART", quietly = TRUE)) {
 #'   data("metabric", package = "SuperSurv")
@@ -2646,7 +2675,8 @@ predict.surv.coxboost <- function(object, newdata, new.times, ...) {
 #'     nskip = 5
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
+#' }
 #' }
 #' @export
 surv.bart <- function(time, event, X, newdata = NULL, new.times, obsWeights = NULL, id = NULL,
@@ -2752,6 +2782,7 @@ surv.bart <- function(time, event, X, newdata = NULL, new.times, obsWeights = NU
 #'   to the observations in \code{newdata} and columns correspond to the evaluation
 #'   times in \code{new.times}.
 #' @examples
+#' \dontrun{
 #' if (.Platform$OS.type != "windows" &&
 #'   requireNamespace("BART", quietly = TRUE)) {
 #'   data("metabric", package = "SuperSurv")
@@ -2772,9 +2803,11 @@ surv.bart <- function(time, event, X, newdata = NULL, new.times, obsWeights = NU
 #'     nskip = 5
 #'   )
 #'
-#'   pred <- fit$pred
+#'   pred <- fit[["pred"]]
 #'   dim(pred)
 #' }
+#' }
+#' @noRd
 #' @export
 predict.surv.bart <- function(object, newdata, new.times, ...) {
 
@@ -2903,7 +2936,7 @@ predict.surv.bart <- function(object, newdata, new.times, ...) {
 #'     leaf_min_events = 2
 #'   )
 #'
-#'   dim(fit$pred)
+#'   dim(fit[["pred"]])
 #' }
 #' @export
 surv.aorsf <- function(time, event, X, newdata, new.times, obsWeights, id,
@@ -2994,9 +3027,10 @@ surv.aorsf <- function(time, event, X, newdata, new.times, obsWeights, id,
 #'     leaf_min_events = 2
 #'   )
 #'
-#'   pred <- predict(fit$fit, newdata = newX, new.times = times)
+#'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
 #'   dim(pred)
 #' }
+#' @noRd
 #' @export
 predict.surv.aorsf <- function(object, newdata, new.times, ...) {
 
@@ -3029,9 +3063,6 @@ predict.surv.aorsf <- function(object, newdata, new.times, ...) {
 
   return(out)
 }
-
-
-
 
 
 

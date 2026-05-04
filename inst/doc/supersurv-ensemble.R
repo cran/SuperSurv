@@ -63,16 +63,25 @@ fit_nll <- SuperSurv(
   nFolds = 5
 )
 
+## ----object-interface---------------------------------------------------------
+fit_ls
+
+summary(fit_ls)
+
+event_weights(fit_ls)
+
+learner_names(fit_ls)
+
+eval_times(fit_ls)
+
+selected_variables(fit_ls, learner = 1)
+
 ## ----inspect-weights----------------------------------------------------------
 cat("\n--- LEAST SQUARES METALEARNER ---\n")
-print(round(fit_ls$event.coef, 4))
-cat("CV Risks (Lower is Better):\n")
-print(round(fit_ls$event.cvRisks, 4))
+summary(fit_ls)
 
 cat("\n--- NLOGLIK METALEARNER ---\n")
-print(round(fit_nll$event.coef, 4))
-cat("CV Risks (Lower is Better):\n")
-print(round(fit_nll$event.cvRisks, 4))
+summary(fit_nll)
 
 ## ----predict-new--------------------------------------------------------------
 # Select 3 brand new patients from our test set
@@ -82,11 +91,12 @@ new_patients <- X_te[1:6, ]
 ensemble_preds <- predict(
   object = fit_ls, 
   newdata = new_patients, 
-  new.times = new.times
+  new.times = new.times,
+  type = "event"
 )
 
 cat("\n--- PREDICTED SURVIVAL PROBABILITIES ---\n")
-final_matrix <- ensemble_preds$event.predict
+final_matrix <- ensemble_preds
 colnames(final_matrix) <- paste0("Time_", new.times)
 rownames(final_matrix) <- paste0("Patient_", 1:6)
 

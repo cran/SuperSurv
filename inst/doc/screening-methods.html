@@ -12,7 +12,7 @@
 
 
 
-<title>4. High-Dimensional Data &amp; Variable Screening</title>
+<title>04. High-Dimensional Data &amp; Variable Screening</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">4. High-Dimensional Data &amp; Variable
+<h1 class="title toc-ignore">04. High-Dimensional Data &amp; Variable
 Screening</h1>
 
 
@@ -478,30 +478,22 @@ you likely want to know <em>which</em> variables actually survived the
 screening process. In clinical and biological research, these selected
 features often represent the most important biomarkers or predictive
 genes.</p>
-<p><code>SuperSurv</code> stores this screening information directly
-inside the fitted model object, specifically separated into
-<code>event.whichScreen</code> and <code>cens.whichScreen</code>. We can
-extract the logical matrix that indicates which columns were passed to
-each specific base learner.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># The event.whichScreen object is a logical matrix.</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># Rows correspond to the predictors, and columns correspond to the algorithms in our event library.</span></span>
+<p><code>SuperSurv</code> provides accessor functions for fitted model
+details, so you can inspect screening results without relying on
+internal list components.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Get the variables retained by the second event learner.</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">selected_variables</span>(fit_highdim, <span class="at">learner =</span> <span class="dv">2</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># 1. Get the logical vector for the 2nd model (Row 2)</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>is_selected <span class="ot">&lt;-</span> fit_highdim<span class="sc">$</span>event.whichScreen[<span class="dv">2</span>, ] </span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># 2. Map it to our original column names</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">colnames</span>(X_tr)[is_selected]</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total features evaluated:&quot;</span>, <span class="fu">ncol</span>(X_tr), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; Total features evaluated: 29</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Features retained by Elastic Net:&quot;</span>, <span class="fu">length</span>(selected_features), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; Features retained by Elastic Net: 10</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Selected Features:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; Selected Features:</span></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;x0&quot;       &quot;x1&quot;       &quot;x2&quot;       &quot;x3&quot;       &quot;x4&quot;       &quot;x5&quot;      </span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;x6&quot;       &quot;x7&quot;       &quot;x8&quot;       &quot;noise_10&quot;</span></span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total features evaluated:&quot;</span>, <span class="fu">ncol</span>(X_tr), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; Total features evaluated: 29</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Features retained by Elastic Net:&quot;</span>, <span class="fu">length</span>(selected_features), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Features retained by Elastic Net: 10</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Selected Features:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Selected Features:</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;x0&quot;       &quot;x1&quot;       &quot;x2&quot;       &quot;x3&quot;       &quot;x4&quot;       &quot;x5&quot;      </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;x6&quot;       &quot;x7&quot;       &quot;x8&quot;       &quot;noise_10&quot;</span></span></code></pre></div>
 <p>By extracting these features, you can seamlessly transition from pure
 predictive modeling into downstream biological inference or pathway
 analysis.</p>

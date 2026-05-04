@@ -58,10 +58,10 @@ fit_best <- SuperSurv(
 
 ## ----inspect-weights----------------------------------------------------------
 cat("\n--- ENSEMBLE WEIGHTS (selection = 'ensemble') ---\n")
-print(round(fit_ensemble$event.coef, 4))
+print(round(event_weights(fit_ensemble), 4))
 
 cat("\n--- BEST MODEL WEIGHTS (selection = 'best') ---\n")
-print(round(fit_best$event.coef, 4))
+print(round(event_weights(fit_best), 4))
 
 ## ----evaluate-comparison------------------------------------------------------
 # Evaluate the Ensemble
