@@ -379,7 +379,10 @@ the covariates and performing a standard 80/20 train-test split.</p>
 <p>We define a library of base survival models. For this quick
 demonstration, we use lightning-fast parametric and tree-based
 models.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>, <span class="st">&quot;surv.rpart&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="cf">if</span> (has_rpart) {</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(my_library, <span class="st">&quot;surv.rpart&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="train-the-supersurv-metalearner" class="section level2">
 <h2>3. Train the SuperSurv Metalearner</h2>
@@ -525,7 +528,7 @@ for common fitted-model details.</p>
 <span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; Evaluation times: 4 values from 50 to 200 </span></span>
 <span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt; Elapsed time (seconds):</span></span>
 <span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="co">#&gt; everything      train    predict </span></span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt;      1.410      1.307      0.103</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt;      1.573      1.464      0.108</span></span>
 <span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a></span>
 <span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="fu">event_weights</span>(fit_ls)</span>
 <span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt;   surv.coxph_screen.all surv.weibull_screen.all   surv.rpart_screen.all </span></span>
@@ -577,7 +580,7 @@ meta-learners.</p>
 <span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; Evaluation times: 4 values from 50 to 200 </span></span>
 <span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; Elapsed time (seconds):</span></span>
 <span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; everything      train    predict </span></span>
-<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;      1.410      1.307      0.103</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;      1.573      1.464      0.108</span></span>
 <span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a></span>
 <span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- NLOGLIK METALEARNER ---</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -608,7 +611,7 @@ meta-learners.</p>
 <span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="co">#&gt; Evaluation times: 4 values from 50 to 200 </span></span>
 <span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt; Elapsed time (seconds):</span></span>
 <span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="co">#&gt; everything      train    predict </span></span>
-<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt;      6.643      6.541      0.101</span></span></code></pre></div>
+<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt;      7.323      7.208      0.113</span></span></code></pre></div>
 <div id="how-to-interpret-this" class="section level3">
 <h3>How to Interpret This:</h3>
 <ul>

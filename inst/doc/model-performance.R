@@ -5,6 +5,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+has_rpart <- requireNamespace("rpart", quietly = TRUE)
 
 ## ----setup, message=FALSE, warning=FALSE--------------------------------------
 library(SuperSurv)
@@ -23,7 +24,10 @@ X_te <- test[, grep("^x", names(metabric))]
 new.times <- seq(50, 200, by = 25) 
 
 ## ----fit-models, results='hide', message=FALSE, warning=FALSE-----------------
-my_library <- c("surv.coxph", "surv.weibull", "surv.rpart")
+my_library <- c("surv.coxph", "surv.weibull")
+if (has_rpart) {
+  my_library <- c(my_library, "surv.rpart")
+}
 
 fit_supersurv <- SuperSurv(
   time = train$duration,

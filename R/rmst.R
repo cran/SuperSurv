@@ -332,6 +332,7 @@ estimate_marginal_rmst <- function(fit, data, trt_col, times, tau,
 #'   confidence interval. Defaults to \code{0.95}.
 #'
 #' @examples
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
 #' data("metabric", package = "SuperSurv")
 #' dat <- metabric[1:80, ]
 #' x_cols <- grep("^x", names(dat), value = TRUE)[1:5]
@@ -344,7 +345,7 @@ estimate_marginal_rmst <- function(fit, data, trt_col, times, tau,
 #'   X = X,
 #'   newdata = X,
 #'   new.times = new.times,
-#'   event.library = c("surv.coxph", "surv.glmnet"),
+#'   event.library = c("surv.coxph"),
 #'   cens.library = c("surv.coxph"),
 #'   control = list(saveFitLibrary = TRUE)
 #' )
@@ -360,6 +361,7 @@ estimate_marginal_rmst <- function(fit, data, trt_col, times, tau,
 #'   B = 100,
 #'   seed = 123
 #' )
+#' }
 #'
 #' @return A \code{ggplot} object visualizing the adjusted marginal RMST contrast curve.
 #' @export
@@ -457,6 +459,7 @@ plot_marginal_rmst_curve <- function(fit, data, trt_col, times, tau_seq,
 #'
 #' @return A \code{ggplot} object comparing predicted RMST to observed outcomes.
 #' @examples
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
 #' data("metabric", package = "SuperSurv")
 #' dat <- metabric[1:80, ]
 #' x_cols <- grep("^x", names(dat))[1:5]
@@ -469,7 +472,7 @@ plot_marginal_rmst_curve <- function(fit, data, trt_col, times, tau_seq,
 #'   X = X,
 #'   newdata = X,
 #'   new.times = new.times,
-#'   event.library = c("surv.coxph", "surv.glmnet"),
+#'   event.library = c("surv.coxph"),
 #'   cens.library = c("surv.coxph"),
 #'   control = list(saveFitLibrary = TRUE)
 #' )
@@ -482,6 +485,7 @@ plot_marginal_rmst_curve <- function(fit, data, trt_col, times, tau_seq,
 #'   times = new.times,
 #'   tau = 350
 #' )
+#' }
 #' @export
 plot_rmst_vs_obs <- function(fit, data, time_col, event_col, times, tau) {
   requireNamespace("ggplot2", quietly = TRUE)

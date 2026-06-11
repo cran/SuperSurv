@@ -3,6 +3,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+has_rfsrc <- requireNamespace("randomForestSRC", quietly = TRUE)
 
 ## ----setup, message=FALSE, warning=FALSE--------------------------------------
 library(SuperSurv)
@@ -16,13 +17,18 @@ X <- metabric[, grep("^x", names(metabric))]
 new.times <- seq(10, 150, by = 10)
 
 ## ----train-model--------------------------------------------------------------
+event_library <- c("surv.coxph", "surv.weibull")
+if (has_rfsrc) {
+  event_library <- c("surv.coxph", "surv.rfsrc")
+}
+
 fit <- SuperSurv(
   time = metabric$duration,
   event = metabric$event,
   X = X,
   newdata = X,
   new.times = new.times,
-  event.library = c("surv.coxph", "surv.rfsrc"),
+  event.library = event_library,
   cens.library = c("surv.coxph"),
   control = list(saveFitLibrary = TRUE) 
 )

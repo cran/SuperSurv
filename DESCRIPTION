@@ -2,7 +2,7 @@ Package: SuperSurv
 Type: Package
 Title: A Unified Framework for Machine Learning Ensembles in Survival
         Analysis
-Version: 0.1.2
+Version: 0.1.7
 Authors@R: 
     person("Yue", "Lyu", email = "yuelyu0521@gmail.com", role = c("aut", "cre"))
 Author: Yue Lyu [aut, cre]
@@ -25,15 +25,15 @@ Encoding: UTF-8
 RoxygenNote: 7.3.0
 Depends: R (>= 4.0.0)
 LazyData: true
-Imports: survival, nnls, future.apply, stats, dplyr, magrittr
+Imports: survival, nnls, future.apply, stats, utils, dplyr, magrittr
 URL: https://github.com/yuelyu21/SuperSurv,
         https://yuelyu21.github.io/SuperSurv/
 BugReports: https://github.com/yuelyu21/SuperSurv/issues
 Suggests: aorsf, BART, CoxBoost, glmnet, gbm, mgcv, randomForestSRC,
-        ranger, rpart, survivalsvm, xgboost, fastshap, survex, ggplot2,
-        tidyr, quadprog, ggforce, patchwork, knitr, rmarkdown
+        ranger, rpart, survivalsvm, xgboost, survex, ggplot2, tidyr,
+        quadprog, ggforce, patchwork, knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2026-05-04 08:47:29 UTC; a98455
+Packaged: 2026-06-11 05:13:58 UTC; a98455
 Repository: CRAN
-Date/Publication: 2026-05-04 09:30:03 UTC
+Date/Publication: 2026-06-11 07:00:18 UTC

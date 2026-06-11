@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+has_rfsrc <- requireNamespace("randomForestSRC", quietly = TRUE)
 ```
 
 ## Moving Beyond the Hazard Ratio
@@ -58,13 +59,18 @@ new.times <- seq(10, 150, by = 10)
 First, train the ensemble. We must set `control = list(saveFitLibrary = TRUE)` so the models are saved for the G-computation prediction phase. 
 
 ```{r train-model}
+event_library <- c("surv.coxph", "surv.weibull")
+if (has_rfsrc) {
+  event_library <- c("surv.coxph", "surv.rfsrc")
+}
+
 fit <- SuperSurv(
   time = metabric$duration,
   event = metabric$event,
   X = X,
   newdata = X,
   new.times = new.times,
-  event.library = c("surv.coxph", "surv.rfsrc"),
+  event.library = event_library,
   cens.library = c("surv.coxph"),
   control = list(saveFitLibrary = TRUE) 
 )

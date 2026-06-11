@@ -5,6 +5,8 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+has_rfsrc <- requireNamespace("randomForestSRC", quietly = TRUE)
+has_survex <- requireNamespace("survex", quietly = TRUE)
 
 ## ----setup, message=FALSE, warning=FALSE--------------------------------------
 library(SuperSurv)
@@ -20,8 +22,13 @@ test  <- metabric[-train_idx, ]
 X_tr <- train[, grep("^x", names(metabric))]
 X_te <- test[, grep("^x", names(metabric))]
 new.times <- seq(50, 200, by = 25)
+X_explain_subset <- X_te[1:50, ]
+X_background_subset <- X_tr[1:100, ]
 
-my_library <- c("surv.coxph", "surv.weibull", "surv.rfsrc")
+my_library <- c("surv.coxph", "surv.weibull")
+if (has_rfsrc) {
+  my_library <- c(my_library, "surv.rfsrc")
+}
 
 fit_sl <- SuperSurv(
   time = train$duration,
@@ -36,37 +43,33 @@ fit_sl <- SuperSurv(
   nFolds = 3
 )
 
-## ----calc-shap, message=FALSE, warning=FALSE----------------------------------
-# Explain the first 50 test patients using 100 training patients as the background
-X_explain_subset <- X_te[1:50, ]
-X_background_subset <- X_tr[1:100, ]
+## ----calc-shap, message=FALSE, warning=FALSE, eval=FALSE----------------------
+# # Calculate weighted Ensemble SHAP values using Kernel SHAP
+# shap_vals <- explain_kernel(
+#   model = fit_sl,
+#   X_explain = X_explain_subset,
+#   X_background = X_background_subset,
+#   nsim = 20
+# )
 
-# Calculate weighted Ensemble SHAP values using Kernel SHAP
-shap_vals <- explain_kernel(
-  model = fit_sl, 
-  X_explain = X_explain_subset, 
-  X_background = X_background_subset, 
-  nsim = 20
-)
+## ----plot-global, fig.width=6, fig.height=4, eval=FALSE-----------------------
+# plot_global_importance(shap_vals, top_n = 5)
 
-## ----plot-global, fig.width=6, fig.height=4-----------------------------------
-plot_global_importance(shap_vals, top_n = 5)
+## ----plot-beeswarm, fig.width=7, fig.height=5, warning=FALSE, eval=FALSE------
+# plot_beeswarm(shap_vals, data = X_explain_subset, top_n = 5)
 
-## ----plot-beeswarm, fig.width=7, fig.height=5, warning=FALSE------------------
-plot_beeswarm(shap_vals, data = X_explain_subset, top_n = 5)
+## ----plot-waterfall, fig.width=6, fig.height=4, eval=FALSE--------------------
+# # Explain Patient #1 from our test subset
+# plot_patient_waterfall(shap_vals, patient_index = 1, top_n = 5)
 
-## ----plot-waterfall, fig.width=6, fig.height=4--------------------------------
-# Explain Patient #1 from our test subset
-plot_patient_waterfall(shap_vals, patient_index = 1, top_n = 5)
+## ----plot-dependence, fig.width=6, fig.height=4, warning=FALSE, eval=FALSE----
+# plot_dependence(shap_vals, data = X_explain_subset, feature_name = "x0")
 
-## ----plot-dependence, fig.width=6, fig.height=4, warning=FALSE----------------
-plot_dependence(shap_vals, data = X_explain_subset, feature_name = "x0")
-
-## ----plot-heatmap, fig.width=7, fig.height=5----------------------------------
+## ----plot-heatmap, fig.width=7, fig.height=5, eval=requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("tidyr", quietly = TRUE) && requireNamespace("dplyr", quietly = TRUE)----
 # Plot the survival trajectories for the first 50 test patients
 plot_survival_heatmap(fit_sl, newdata = X_explain_subset, times = new.times)
 
-## ----survex-bridge, message=FALSE, warning=FALSE------------------------------
+## ----survex-bridge, message=FALSE, warning=FALSE, eval=requireNamespace("survex", quietly = TRUE)----
 library(survex)
 
 # 1. Create the true survival object for the explanation subset
@@ -80,20 +83,20 @@ surv_explainer <- explain_survex(
   times = new.times
 )
 
-## ----survex-importance, fig.width=7, fig.height=5, message=FALSE, warning=FALSE----
+## ----survex-importance, fig.width=7, fig.height=5, message=FALSE, warning=FALSE, eval=requireNamespace("survex", quietly = TRUE)----
 # Calculate time-dependent model parts (permutation feature importance)
 time_importance <- model_parts(surv_explainer)
 
 # Plot the dynamic importance over time
 plot(time_importance)
 
-## ----survex-profile, fig.width=7, fig.height=5, message=FALSE, warning=FALSE----
+## ----survex-profile, fig.width=7, fig.height=5, message=FALSE, warning=FALSE, eval=requireNamespace("survex", quietly = TRUE)----
 # Calculate the partial dependence profile for feature 'x0'
 pdp_time <- model_profile(surv_explainer, variables = "x0")
 
 plot(pdp_time)
 
-## ----survex-survshap, fig.width=7, fig.height=5, message=FALSE, warning=FALSE----
+## ----survex-survshap, fig.width=7, fig.height=5, message=FALSE, warning=FALSE, eval=requireNamespace("survex", quietly = TRUE)----
 # Explain Patient #1 over time
 patient_1_data <- X_explain_subset[1, , drop = FALSE]
 
@@ -102,7 +105,7 @@ survshap_t <- predict_parts(surv_explainer, new_observation = patient_1_data, ty
 
 plot(survshap_t)
 
-## ----survex-performance, fig.width=7, fig.height=5, message=FALSE, warning=FALSE----
+## ----survex-performance, fig.width=7, fig.height=5, message=FALSE, warning=FALSE, eval=requireNamespace("survex", quietly = TRUE)----
 # Calculate time-dependent performance metrics via survex
 survex_perf <- model_performance(surv_explainer)
 

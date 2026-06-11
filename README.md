@@ -83,18 +83,17 @@ The framework is extensible, and users can add custom learners and screeners. Se
 
 The package website includes tutorials covering:
 
-- **0. Installation & Setup**
-- **1. The SuperSurv Ensemble**
-- **2. Model Performance**
-- **3. Selection vs. Ensemble**
-- **4. Screening Methods**
-- **5. Hyperparameter Tuning**
-- **6. Random Forests**
-- **7. Parametric Models**
-- **8. SHAP Interpretability**
-- **9. Causal Inference (RMST)**
-- **10. Parallel Processing**
-- **11. Extending SuperSurv**
+- **00. Installation & Setup**
+- **01. The SuperSurv Ensemble**
+- **02. Model Performance**
+- **03. Selection vs. Ensemble**
+- **04. Screening Methods**
+- **05. Hyperparameter Tuning**
+- **06. Random Forests**
+- **07. Parametric Models**
+- **08. SHAP Interpretability**
+- **09. Causal Inference (RMST)**
+- **10. Extending SuperSurv**
 
 ---
 

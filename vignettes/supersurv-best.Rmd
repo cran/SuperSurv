@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+has_rpart <- requireNamespace("rpart", quietly = TRUE)
 ```
 
 ## Introduction
@@ -50,7 +51,10 @@ X_te <- test[, grep("^x", names(metabric))]
 new.times <- seq(50, 200, by = 25)
 
 # Define a diverse library of base learners
-my_library <- c("surv.coxph", "surv.weibull", "surv.rpart")
+my_library <- c("surv.coxph", "surv.weibull")
+if (has_rpart) {
+  my_library <- c(my_library, "surv.rpart")
+}
 ```
 
 ## 2. Fit Both Super Learners

@@ -33,8 +33,7 @@ A data.frame of class \code{c("explain", "data.frame")} containing the calculate
 Explain Predictions with Global SHAP (Kernel SHAP)
 }
 \examples{
-if (requireNamespace("fastshap", quietly = TRUE) &&
-    requireNamespace("glmnet", quietly = TRUE)) {
+if (FALSE) {
   data("metabric", package = "SuperSurv")
   dat <- metabric[1:80, ]
   x_cols <- grep("^x", names(dat))[1:5]

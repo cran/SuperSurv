@@ -416,13 +416,19 @@ and screening:</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>my_screen_library <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;screen.all&quot;</span>),         <span class="co"># Baseline: Cox model with ALL variables</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;screen.marg&quot;</span>),        <span class="co"># Screen by marginal association, then fit Cox</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;surv.weibull&quot;</span>, <span class="st">&quot;screen.elasticnet&quot;</span>),<span class="co"># Screen via Elastic Net, then fit Weibull</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;surv.rpart&quot;</span>, <span class="st">&quot;screen.var&quot;</span>)          <span class="co"># Drop zero-variance noise, then fit a Tree</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># For the censoring library, we use an unscreened approach </span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>cens_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>)</span></code></pre></div>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;screen.marg&quot;</span>)         <span class="co"># Screen by marginal association, then fit Cox</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="cf">if</span> (has_glmnet) {</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  my_screen_library[[<span class="fu">length</span>(my_screen_library) <span class="sc">+</span> 1L]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.weibull&quot;</span>, <span class="st">&quot;screen.elasticnet&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="cf">if</span> (has_rpart) {</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  my_screen_library[[<span class="fu">length</span>(my_screen_library) <span class="sc">+</span> 1L]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.rpart&quot;</span>, <span class="st">&quot;screen.var&quot;</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co"># For the censoring library, we use an unscreened approach </span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>cens_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>)</span></code></pre></div>
 </div>
 <div id="training-with-embedded-screening" class="section level2">
 <h2>3. Training with Embedded Screening</h2>
@@ -486,8 +492,8 @@ internal list components.</p>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total features evaluated:&quot;</span>, <span class="fu">ncol</span>(X_tr), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; Total features evaluated: 29</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Features retained by Elastic Net:&quot;</span>, <span class="fu">length</span>(selected_features), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Features retained by Elastic Net: 10</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Features retained by learner 2:&quot;</span>, <span class="fu">length</span>(selected_features), <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Features retained by learner 2: 10</span></span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Selected Features:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Selected Features:</span></span>

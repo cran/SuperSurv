@@ -388,20 +388,23 @@ evaluation grid within the limits of your observed data!</p>
 <h2>2. Train the Benchmark Ensemble</h2>
 <p>We will fit an ensemble consisting of a Cox model, a Weibull model,
 and a Survival Tree using the default Least Squares meta-learner.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>, <span class="st">&quot;surv.rpart&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>fit_supersurv <span class="ot">&lt;-</span> <span class="fu">SuperSurv</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">time =</span> train<span class="sc">$</span>duration,</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">event =</span> train<span class="sc">$</span>event,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">X =</span> X_tr,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">newdata =</span> X_te,</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">new.times =</span> new.times,</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">event.library =</span> my_library,</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">cens.library =</span> my_library,</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">saveFitLibrary =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">nFolds =</span> <span class="dv">3</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="cf">if</span> (has_rpart) {</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(my_library, <span class="st">&quot;surv.rpart&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>fit_supersurv <span class="ot">&lt;-</span> <span class="fu">SuperSurv</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">time =</span> train<span class="sc">$</span>duration,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">event =</span> train<span class="sc">$</span>event,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">X =</span> X_tr,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">newdata =</span> X_te,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">new.times =</span> new.times,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="at">event.library =</span> my_library,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">cens.library =</span> my_library,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">saveFitLibrary =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="at">nFolds =</span> <span class="dv">3</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="extracting-integrated-metrics" class="section level2">
 <h2>3. Extracting Integrated Metrics</h2>

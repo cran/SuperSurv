@@ -66,8 +66,7 @@ ml_packages <- c(
   "xgboost",         # Extreme Gradient Boosting
   "glmnet",          # Elastic Net & Penalized Regression
   "rpart",           # Decision Trees
-  "survex",          # Time-Dependent XAI (Interpretability)
-  "fastshap"         # Kernel SHAP support
+  "survex"           # Time-Dependent XAI (Interpretability)
 )
 
 # Identify which ones you are missing

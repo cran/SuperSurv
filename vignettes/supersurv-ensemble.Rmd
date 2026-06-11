@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+has_rpart <- requireNamespace("rpart", quietly = TRUE)
 ```
 
 ## Introduction
@@ -51,7 +52,10 @@ new.times <- c(50, 100, 150, 200)
 We define a library of base survival models. For this quick demonstration, we use lightning-fast parametric and tree-based models.
 
 ```{r define-library}
-my_library <- c("surv.coxph", "surv.weibull", "surv.rpart")
+my_library <- c("surv.coxph", "surv.weibull")
+if (has_rpart) {
+  my_library <- c(my_library, "surv.rpart")
+}
 ```
 
 

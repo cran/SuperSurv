@@ -5,6 +5,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+has_rfsrc <- requireNamespace("randomForestSRC", quietly = TRUE)
 
 ## ----setup, message=FALSE, warning=FALSE--------------------------------------
 library(SuperSurv)
@@ -22,7 +23,7 @@ X_te <- test[, grep("^x", names(metabric))]
 
 new.times <- seq(50, 200, by = 25) 
 
-## ----standalone-rf------------------------------------------------------------
+## ----standalone-rf, eval=requireNamespace("randomForestSRC", quietly = TRUE)----
 # 1. Fit the standalone wrapper
 rf_standalone <- surv.rfsrc(
   time = train$duration,
@@ -35,11 +36,11 @@ rf_standalone <- surv.rfsrc(
 rf_fit <- rf_standalone[["fit"]]
 rf_pred_matrix <- rf_standalone[["pred"]]
 
-## ----plot-standalone, fig.align='center'--------------------------------------
+## ----plot-standalone, fig.align='center', eval=requireNamespace("randomForestSRC", quietly = TRUE)----
 # Plot the first 3 patients in our training set
 plot_predict(preds = rf_pred_matrix, eval_times = new.times, patient_idx = 1:3)
 
-## ----eval-standalone, fig.align='center', fig.height=4, fig.width= 9----------
+## ----eval-standalone, fig.align='center', fig.height=4, fig.width= 9, eval=requireNamespace("randomForestSRC", quietly = TRUE)----
 # The function automatically detects this is a single model and plots it!
 plot_benchmark(
   object = rf_fit,
@@ -61,7 +62,7 @@ plot_benchmark(
 # )
 
 
-## ----fit-models, results='hide', message=FALSE, warning=FALSE-----------------
+## ----fit-models, results='hide', message=FALSE, warning=FALSE, eval=requireNamespace("randomForestSRC", quietly = TRUE)----
 my_library <- c("surv.coxph", "surv.weibull", "surv.rfsrc")
 
 fit_supersurv <- SuperSurv(
@@ -77,7 +78,7 @@ fit_supersurv <- SuperSurv(
   nFolds = 3
 )
 
-## ----plot-ensemble-benchmark, fig.align='center', fig.height=9----------------
+## ----plot-ensemble-benchmark, fig.align='center', fig.height=9, eval=requireNamespace("randomForestSRC", quietly = TRUE)----
 plot_benchmark(
   object = fit_supersurv,
   newdata = X_te,

@@ -50,6 +50,7 @@ If \code{inference = TRUE}, the function additionally displays perturbation-base
 Wald confidence intervals at each value of \code{tau}.
 }
 \examples{
+if (requireNamespace("ggplot2", quietly = TRUE)) {
 data("metabric", package = "SuperSurv")
 dat <- metabric[1:80, ]
 x_cols <- grep("^x", names(dat), value = TRUE)[1:5]
@@ -62,7 +63,7 @@ fit <- SuperSurv(
   X = X,
   newdata = X,
   new.times = new.times,
-  event.library = c("surv.coxph", "surv.glmnet"),
+  event.library = c("surv.coxph"),
   cens.library = c("surv.coxph"),
   control = list(saveFitLibrary = TRUE)
 )
@@ -78,5 +79,6 @@ plot_marginal_rmst_curve(
   B = 100,
   seed = 123
 )
+}
 
 }

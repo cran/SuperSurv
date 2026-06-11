@@ -8,8 +8,7 @@
 #' @param verbose Logical; if \code{TRUE}, progress messages are shown.
 #' @return A data.frame of class \code{c("explain", "data.frame")} containing the calculated SHAP values. The columns correspond to the covariates in \code{X_explain}.
 #' @examples
-#' if (requireNamespace("fastshap", quietly = TRUE) &&
-#'     requireNamespace("glmnet", quietly = TRUE)) {
+#' if (FALSE) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:80, ]
 #'   x_cols <- grep("^x", names(dat))[1:5]
@@ -40,7 +39,15 @@
 explain_kernel <- function(model, X_explain, X_background, nsim = 20,
                            only_best = FALSE,verbose = FALSE) {
 
-  requireNamespace("fastshap", quietly = TRUE)
+  fastshap_pkg <- "fastshap"
+  if (!requireNamespace(fastshap_pkg, quietly = TRUE)) {
+    stop(
+      "Kernel SHAP explanations require the optional 'fastshap' package. ",
+      "The package is no longer available on CRAN; install it separately to use explain_kernel().",
+      call. = FALSE
+    )
+  }
+  fastshap_explain <- utils::getFromNamespace("explain", fastshap_pkg)
 
   # ------------------------------------------------------------------
   # PATH A: The SuperSurv Ensemble
@@ -66,7 +73,7 @@ explain_kernel <- function(model, X_explain, X_background, nsim = 20,
 
       if (isTRUE(verbose)) { message(sprintf(" -> SHAP for %s (Weight: %.3f)", model_name, weight))  }
 
-      s <- fastshap::explain(
+      s <- fastshap_explain(
         object = model_fit,
         X = X_explain,
         nsim = nsim,
@@ -89,7 +96,7 @@ explain_kernel <- function(model, X_explain, X_background, nsim = 20,
     model_to_explain <- model$fit
     if (isTRUE(verbose)) {  message(  " -> Calculating SHAP for single learner of class: ",  class(model_to_explain)[1]    ) }
 
-    s <- fastshap::explain(
+    s <- fastshap_explain(
       object = model_to_explain,
       X = X_explain,
       nsim = nsim,
@@ -208,8 +215,7 @@ explain_survex <- function(model, data, y, times, label = NULL) {
 #' @param top_n Number of features to show (default 10)
 #' @return A \code{ggplot} object visualizing the SHAP values.
 #' @examples
-#' if (requireNamespace("fastshap", quietly = TRUE) &&
-#'     requireNamespace("glmnet", quietly = TRUE)) {
+#' if (FALSE) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:80, ]
 #'   x_cols <- grep("^x", names(dat))[1:5]
@@ -278,9 +284,7 @@ plot_global_importance <- function(shap_values, title = "SuperSurv: Ensemble Fea
 #' @param top_n Number of features to display
 #' @return A \code{ggplot} object visualizing the SHAP values.
 #' @examples
-#' if (requireNamespace("fastshap", quietly = TRUE) &&
-#'     requireNamespace("ggforce", quietly = TRUE) &&
-#'     requireNamespace("glmnet", quietly = TRUE)) {
+#' if (FALSE) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:80, ]
 #'   x_cols <- grep("^x", names(dat))[1:5]
@@ -395,8 +399,7 @@ plot_beeswarm <- function(shap_values, data, top_n = 10) {
 #' @param top_n Number of features to show (default 10)
 #' @return A \code{ggplot} object visualizing the SHAP values.
 #' @examples
-#' if (requireNamespace("fastshap", quietly = TRUE) &&
-#'     requireNamespace("glmnet", quietly = TRUE)) {
+#' if (FALSE) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:80, ]
 #'   x_cols <- grep("^x", names(dat))[1:5]
@@ -472,8 +475,7 @@ plot_patient_waterfall <- function(shap_values, patient_index = 1, top_n = 10) {
 #' @param title Optional custom title.
 #' @return A \code{ggplot} object visualizing the SHAP values.
 #' @examples
-#' if (requireNamespace("fastshap", quietly = TRUE) &&
-#'     requireNamespace("glmnet", quietly = TRUE)) {
+#' if (FALSE) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:80, ]
 #'   x_cols <- grep("^x", names(dat))[1:5]

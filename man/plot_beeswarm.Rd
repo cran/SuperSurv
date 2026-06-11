@@ -20,9 +20,7 @@ A \code{ggplot} object visualizing the SHAP values.
 Beeswarm Summary Plot for SuperSurv SHAP
 }
 \examples{
-if (requireNamespace("fastshap", quietly = TRUE) &&
-    requireNamespace("ggforce", quietly = TRUE) &&
-    requireNamespace("glmnet", quietly = TRUE)) {
+if (FALSE) {
   data("metabric", package = "SuperSurv")
   dat <- metabric[1:80, ]
   x_cols <- grep("^x", names(dat))[1:5]

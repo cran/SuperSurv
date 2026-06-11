@@ -396,15 +396,14 @@ used machine learning and interpretability engines:</p>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="st">&quot;xgboost&quot;</span>,         <span class="co"># Extreme Gradient Boosting</span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="st">&quot;glmnet&quot;</span>,          <span class="co"># Elastic Net &amp; Penalized Regression</span></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="st">&quot;rpart&quot;</span>,           <span class="co"># Decision Trees</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="st">&quot;survex&quot;</span>,          <span class="co"># Time-Dependent XAI (Interpretability)</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="st">&quot;fastshap&quot;</span>         <span class="co"># Kernel SHAP support</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>)</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co"># Identify which ones you are missing</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>missing_pkgs <span class="ot">&lt;-</span> ml_packages[<span class="sc">!</span>(ml_packages <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co"># Install the missing ones</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(missing_pkgs)) <span class="fu">install.packages</span>(missing_pkgs)</span></code></pre></div>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="st">&quot;survex&quot;</span>           <span class="co"># Time-Dependent XAI (Interpretability)</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co"># Identify which ones you are missing</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>missing_pkgs <span class="ot">&lt;-</span> ml_packages[<span class="sc">!</span>(ml_packages <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co"># Install the missing ones</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(missing_pkgs)) <span class="fu">install.packages</span>(missing_pkgs)</span></code></pre></div>
 <div id="specialized-packages" class="section level3">
 <h3>Specialized Packages</h3>
 <p>A few wrappers require specialized packages that you might only need

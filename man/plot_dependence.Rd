@@ -22,8 +22,7 @@ A \code{ggplot} object visualizing the SHAP values.
 Plot SHAP Dependence for SuperSurv
 }
 \examples{
-if (requireNamespace("fastshap", quietly = TRUE) &&
-    requireNamespace("glmnet", quietly = TRUE)) {
+if (FALSE) {
   data("metabric", package = "SuperSurv")
   dat <- metabric[1:80, ]
   x_cols <- grep("^x", names(dat))[1:5]

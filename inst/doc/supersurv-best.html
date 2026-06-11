@@ -384,7 +384,10 @@ time grid exactly as we did in the previous tutorials.</p>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>new.times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">50</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">25</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co"># Define a diverse library of base learners</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>, <span class="st">&quot;surv.rpart&quot;</span>)</span></code></pre></div>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="cf">if</span> (has_rpart) {</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  my_library <span class="ot">&lt;-</span> <span class="fu">c</span>(my_library, <span class="st">&quot;surv.rpart&quot;</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="fit-both-super-learners" class="section level2">
 <h2>2. Fit Both Super Learners</h2>

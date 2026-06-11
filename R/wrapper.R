@@ -211,7 +211,7 @@ predict.surv.rfsrc <- function(object, newdata, new.times, ...) {
 #'     evaluated at the specified \code{new.times} grid.
 #' }
 #' @examples
-#' if (requireNamespace("xgboost", quietly = TRUE)) {
+#' if (interactive() && requireNamespace("xgboost", quietly = TRUE)) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:30, ]
 #'   x_cols <- grep("^x", names(dat))[1:3]
@@ -229,7 +229,8 @@ predict.surv.rfsrc <- function(object, newdata, new.times, ...) {
 #'     id = NULL,
 #'     nrounds = 5,
 #'     early_stopping_rounds = 2,
-#'     max_depth = 1
+#'     max_depth = 1,
+#'     nthread = 1
 #'   )
 #'
 #'   dim(fit[["pred"]])
@@ -336,7 +337,7 @@ surv.xgboost <- function(time, event, X, newdata = NULL,  new.times, obsWeights,
 #'   to the observations in \code{newdata} and columns correspond to the evaluation
 #'   times in \code{new.times}.
 #' @examples
-#' if (requireNamespace("xgboost", quietly = TRUE)) {
+#' if (interactive() && requireNamespace("xgboost", quietly = TRUE)) {
 #'   data("metabric", package = "SuperSurv")
 #'   dat <- metabric[1:30, ]
 #'   x_cols <- grep("^x", names(dat))[1:3]
@@ -354,7 +355,8 @@ surv.xgboost <- function(time, event, X, newdata = NULL,  new.times, obsWeights,
 #'     id = NULL,
 #'     nrounds = 5,
 #'     early_stopping_rounds = 2,
-#'     max_depth = 1
+#'     max_depth = 1,
+#'     nthread = 1
 #'   )
 #'
 #'   pred <- predict(fit[["fit"]], newdata = newX, new.times = times)
@@ -3063,8 +3065,6 @@ predict.surv.aorsf <- function(object, newdata, new.times, ...) {
 
   return(out)
 }
-
-
 
 
 

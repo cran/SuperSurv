@@ -414,16 +414,21 @@ dataset. We will evaluate the effect of the binary biomarker
 <p>First, train the ensemble. We must set
 <code>control = list(saveFitLibrary = TRUE)</code> so the models are
 saved for the G-computation prediction phase.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">SuperSurv</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">time =</span> metabric<span class="sc">$</span>duration,</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">event =</span> metabric<span class="sc">$</span>event,</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">X =</span> X,</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">newdata =</span> X,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">new.times =</span> new.times,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">event.library =</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.rfsrc&quot;</span>),</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">cens.library =</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">saveFitLibrary =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>event_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.weibull&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="cf">if</span> (has_rfsrc) {</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  event_library <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>, <span class="st">&quot;surv.rfsrc&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">SuperSurv</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">time =</span> metabric<span class="sc">$</span>duration,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">event =</span> metabric<span class="sc">$</span>event,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">X =</span> X,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">newdata =</span> X,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">new.times =</span> new.times,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="at">event.library =</span> event_library,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="at">cens.library =</span> <span class="fu">c</span>(<span class="st">&quot;surv.coxph&quot;</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">saveFitLibrary =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="estimate-the-adjusted-marginal-rmst-contrast" class="section level3">
 <h3>2. Estimate the Adjusted Marginal RMST Contrast</h3>

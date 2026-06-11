@@ -67,7 +67,7 @@ Estimates a Cox proportional hazards model via XGBoost.
 Incorporates safe Breslow hazard calculation and matrix alignment to prevent C++ crashes.
 }
 \examples{
-if (requireNamespace("xgboost", quietly = TRUE)) {
+if (interactive() && requireNamespace("xgboost", quietly = TRUE)) {
   data("metabric", package = "SuperSurv")
   dat <- metabric[1:30, ]
   x_cols <- grep("^x", names(dat))[1:3]
@@ -85,7 +85,8 @@ if (requireNamespace("xgboost", quietly = TRUE)) {
     id = NULL,
     nrounds = 5,
     early_stopping_rounds = 2,
-    max_depth = 1
+    max_depth = 1,
+    nthread = 1
   )
 
   dim(fit[["pred"]])

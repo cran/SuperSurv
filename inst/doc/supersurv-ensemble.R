@@ -3,6 +3,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+has_rpart <- requireNamespace("rpart", quietly = TRUE)
 
 ## ----setup, message=FALSE, warning=FALSE--------------------------------------
 library(SuperSurv)
@@ -28,7 +29,10 @@ X_te <- test[, x_cols]
 new.times <- c(50, 100, 150, 200)
 
 ## ----define-library-----------------------------------------------------------
-my_library <- c("surv.coxph", "surv.weibull", "surv.rpart")
+my_library <- c("surv.coxph", "surv.weibull")
+if (has_rpart) {
+  my_library <- c(my_library, "surv.rpart")
+}
 
 ## ----fit-models, results='hide', message=FALSE, warning=FALSE-----------------
 # Fit 1: Least Squares Meta-learner
